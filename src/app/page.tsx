@@ -1,6 +1,8 @@
+// 'use client';
+
 import Image from 'next/image';
 
-import Task from '../components/Task';
+import Task from '@/components/Task';
 
 export default function Home() {
   return (

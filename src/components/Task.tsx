@@ -1,7 +1,13 @@
+'use client';
+
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 import { TaskType } from '@/types/task';
 
 function Task() {
-  const tasks: TaskType[] = [
+  const tasks = useSelector((state: RootState) => state.tasks.tasks);
+
+  const taskslocal: TaskType[] = [
     {
       id: 1,
       title: 'Вспомнить JS',
