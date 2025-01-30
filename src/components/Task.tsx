@@ -7,30 +7,6 @@ import { TaskType } from '@/types/task';
 function Task() {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
-  const taskslocal: TaskType[] = [
-    {
-      id: 1,
-      title: 'Вспомнить JS',
-      description: 'Все забыл, но базовая инфа есть в глубинах сознания',
-      completed: false,
-      timeIsUp: false,
-    },
-    {
-      id: 2,
-      title: 'Вспомнить React',
-      description: 'Уже начинаю что-то припоминать',
-      completed: false,
-      timeIsUp: false,
-    },
-    {
-      id: 3,
-      title: 'Начать писать на tsx',
-      description: 'Вроде не так уж и сложно',
-      completed: false,
-      timeIsUp: false,
-    },
-  ];
-
   return (
     <div>
       {tasks.map((task) => {
@@ -41,6 +17,7 @@ function Task() {
           >
             <h3 className="title">{task.title}</h3>
             <p className="description">{task.description}</p>
+            <span className="work-time">{task.workTime}</span>
           </div>
         );
       })}
