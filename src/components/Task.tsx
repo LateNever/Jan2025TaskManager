@@ -1,28 +1,45 @@
-'use client';
+import { useDispatch, UseDispatch } from 'react-redux';
 
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
-import { TaskType } from '@/types/task';
+import { activateTask } from '@/store/taskSlice';
 
-function Task() {
-  const tasks = useSelector((state: RootState) => state.tasks.tasks);
+import Button from '@/UI/Button';
+
+interface TaskProps {
+  id: string;
+  title: string;
+  description: string;
+  workTime: string;
+  active: boolean;
+}
+
+const Task: React.FC<TaskProps> = ({
+  id,
+  title,
+  description,
+  workTime,
+  active,
+}) => {
+  const dispatch = useDispatch();
+
+  const activateTaskHandle = () => {
+    console.log(active);
+
+    dispatch(activateTask({ id }));
+  };
 
   return (
-    <div>
-      {tasks.map((task) => {
-        return (
-          <div
-            className="task-wrap bg-gray-500 p-2 m-2 rounded-md shadow-md"
-            key={task.id}
-          >
-            <h3 className="title">{task.title}</h3>
-            <p className="description">{task.description}</p>
-            <span className="work-time">{task.workTime}</span>
-          </div>
-        );
-      })}
+    <div
+      className="flex flex-col gap-y-4 task-wrap p-6 rounded-3xl bg-emerald-100 shadow-md"
+      key={id}
+    >
+      <h3 className="title text-center">{title}</h3>
+      <span className="work-time text-center">{workTime}</span>
+      <p className="description">{description}</p>
+      <Button name="Начать выполнение" onClick={activateTaskHandle} />
+      <Button name="Завершить выполнение" />
+      {active && <span>Актвная</span>}
     </div>
   );
-}
+};
 
 export default Task;
