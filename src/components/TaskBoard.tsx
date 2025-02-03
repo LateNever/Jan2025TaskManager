@@ -8,7 +8,7 @@ function TaskBoard() {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
   return (
-    <div className="flex flex-col gap-y-6">
+    <div className="flex flex-col p-6 gap-y-6 rounded-3xl bg-gray-200">
       {tasks.map((task) => {
         return (
           <Task

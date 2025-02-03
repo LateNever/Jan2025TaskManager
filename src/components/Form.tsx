@@ -33,7 +33,7 @@ const Form = () => {
     <div>
       <form
         onSubmit={addTaskHandle}
-        className="flex flex-col mr-4 gap-y-6 p-6 rounded-3xl bg-blue-100 shadow-md"
+        className="flex flex-col gap-y-6 p-6 rounded-3xl bg-blue-100 shadow-md"
       >
         <input
           className="p-3 rounded-xl bg-blue-200 focus:bg-blue-300"
@@ -67,7 +67,12 @@ const Form = () => {
           name="description"
           placeholder="Введите описание задачи"
         ></textarea>
-        <Button name="Добавить" type="submit" />
+        <button /* Использование компонента Button почему-то ломает tailwind*/
+          className="p-3 rounded-xl bg-blue-200 transition ease-in-out hover:bg-blue-300 active:bg-blue-400"
+          type="submit"
+        >
+          Добавить
+        </button>
       </form>
     </div>
   );

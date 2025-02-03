@@ -14,15 +14,16 @@ const initialState: tasksStateType = {
       planTime: 1,
       isVisible: true,
     },
-    // {
-    //   id: 2,
-    //   title: 'Задача два',
-    //   description: 'Описание задачи два',
-    //   workTimeSec: 600,
-    //   active: false,
-    //   completed: false,
-    //   timeIsUp: false,
-    // },
+    {
+      id: '2ads',
+      title: 'Задача два',
+      description: 'Описание задачи два',
+      workTimeSec: 600,
+      active: false,
+      completed: false,
+      planTime: 1,
+      isVisible: true,
+    },
   ],
 };
 
@@ -65,7 +66,7 @@ const taskSlice = createSlice({
     completeTask(state, action) {
       state.tasks.forEach((task) => {
         if (task.id === action.payload.id) {
-          task.completed = true;
+          task.completed = !task.completed;
           task.active = false;
         }
       });

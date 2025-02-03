@@ -39,6 +39,7 @@ const Task: React.FC<TaskProps> = ({
   });
 
   const [modal, setModal] = useState<boolean>(false);
+  const [isCompact, setIsCompact] = useState<boolean>(true);
 
   const color: string =
     active && workTimeSec < 0
@@ -88,44 +89,59 @@ const Task: React.FC<TaskProps> = ({
     setModal(!modal);
   };
 
+  const toggleCompact = () => {
+    setIsCompact(!isCompact);
+  };
+
   return (
     <>
       {isVisible && (
         <div
-          className={`flex flex-col gap-y-4 task-wrap p-6 rounded-3xl ${color} shadow-md`}
+          className={`relative flex flex-col gap-y-4 p-6 rounded-3xl ${color} shadow-md`}
           key={id}
         >
-          <h3 className="text-center text-lg font-bold">{title}</h3>
-          <span className="text-center">{planTimeTask}</span>
-          {/* <span className="text-center">{workTimeSec}</span> */}
-          <span className="text-center">{workTime}</span>
-          <p>{description}</p>
-          {!completed && (
-            <Button
-              name={active ? 'Пауза' : 'Начать выполнение'}
-              type="button"
-              onClick={activateTaskHandle}
-            />
-          )}
-          {!completed && (
-            <Button
-              name="Завершить выполнение"
-              type="button"
-              onClick={completeTaskHandle}
-            />
-          )}
-          {!completed && (
-            <Button
-              name="Редактировать задачу"
-              type="button"
-              onClick={toggleModal}
-            />
-          )}
-          <Button
-            name="Удалить задачу"
+          <button
+            className="absolute top-6 right-6 w-9 h-7 rounded-lg bg-indigo-200"
             type="button"
-            onClick={deleteTaskHandle}
-          />
+            onClick={toggleCompact}
+          >
+            +
+          </button>
+          <h3 className="text-center text-lg font-bold ">{title}</h3>
+          {!isCompact && (
+            <div className="flex flex-col gap-y-4">
+              <span className="text-center">{planTimeTask}</span>
+              <span className="text-center">{workTimeSec}</span>
+              <span className="text-center">{workTime}</span>
+              <p>{description}</p>
+              {!completed && (
+                <Button
+                  name={active ? 'Пауза' : 'Начать выполнение'}
+                  type="button"
+                  onClick={activateTaskHandle}
+                />
+              )}
+              {
+                <Button
+                  name={completed ? 'Вернуть в работу' : 'Завершить выполнение'}
+                  type="button"
+                  onClick={completeTaskHandle}
+                />
+              }
+              {!completed && (
+                <Button
+                  name="Редактировать задачу"
+                  type="button"
+                  onClick={toggleModal}
+                />
+              )}
+              <Button
+                name="Удалить задачу"
+                type="button"
+                onClick={deleteTaskHandle}
+              />
+            </div>
+          )}
 
           {modal && (
             <div

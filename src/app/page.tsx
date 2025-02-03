@@ -6,12 +6,16 @@ import Search from '@/components/Search';
 
 export default function Home() {
   return (
-    <div className="flex flex-col bg-gray-100 font-[family-name:var(--font-geist-sans)]">
-      <h1 className="p-6 text-center text-3xl">Менеджер задач</h1>
+    <div className="flex flex-col items-center w-full h-full p-6 gap-y-6 font-[family-name:var(--font-geist-sans)] bg-gray-100 ">
+      <h1 className="min-w-128 p-6 text-center rounded-3xl text-3xl font-bold bg-blue-200 shadow-md">
+        Менеджер задач
+      </h1>
       <Search />
-      <div className="p-6 flex">
+      <div className="grid grid-cols-4 gap-x-6 w-full">
         <Form />
         <TaskBoard />
+        {/* <TaskBoard /> */}
+        {/* <TaskBoard /> */}
       </div>
     </div>
   );
