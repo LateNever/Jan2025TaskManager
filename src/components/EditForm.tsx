@@ -3,36 +3,54 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addTask } from '@/store/taskSlice';
+import { editTask } from '@/store/taskSlice';
 
 import Button from '@/UI/Button';
 
-const Form = () => {
-  const [title, setTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [workTime, setWorkTime] = useState<string>('');
+interface TaskProps {
+  formId: string;
+  formTitle: string;
+  formDescription: string;
+  formWorkTime: string;
+  forEditClose: () => void;
+}
+
+const EditForm: React.FC<TaskProps> = ({
+  formId,
+  formTitle,
+  formDescription,
+  formWorkTime,
+  forEditClose,
+}) => {
+  const [title, setTitle] = useState<string>(formTitle);
+  const [description, setDescription] = useState<string>(formDescription);
+  const [workTime, setWorkTime] = useState<string>(formWorkTime);
   const [workTimeSec, setWorkTimeSec] = useState<number>(0);
   const [planTime, setPlanTime] = useState<number>(0);
 
   const dispatch = useDispatch();
 
-  const addTaskHandle = (event: React.FormEvent<HTMLFormElement>) => {
+  const editTaskHandle = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (title.trim().length && workTime) {
-      const id: string = new Date().toISOString();
-
-      dispatch(addTask({ id, title, description, workTimeSec, planTime }));
-
-      setTitle('');
-      setDescription('');
-      setWorkTime('');
+      dispatch(
+        editTask({
+          formId,
+          title,
+          description,
+          workTime,
+          workTimeSec,
+          planTime,
+        })
+      );
+      forEditClose();
     }
   };
 
   return (
-    <div>
+    <div onClick={(e) => e.stopPropagation()}>
       <form
-        onSubmit={addTaskHandle}
+        onSubmit={editTaskHandle}
         className="flex flex-col mr-4 gap-y-6 p-6 rounded-3xl bg-blue-100 shadow-md"
       >
         <input
@@ -67,10 +85,11 @@ const Form = () => {
           name="description"
           placeholder="Введите описание задачи"
         ></textarea>
-        <Button name="Добавить" type="submit" />
+        <Button name="Ок" type="submit" />
+        <Button name="Отмена" type="button" onClick={forEditClose} />
       </form>
     </div>
   );
 };
 
-export default Form;
+export default EditForm;

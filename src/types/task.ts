@@ -2,8 +2,9 @@ export type TaskType = {
   id: any;
   title: string;
   description: string;
-  workTime: string;
+  workTimeSec: number;
   active: boolean;
   completed: boolean;
-  timeIsUp: boolean;
+  planTime: number;
+  isVisible: boolean;
 };

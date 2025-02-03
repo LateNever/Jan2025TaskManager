@@ -2,7 +2,6 @@
 
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { TaskType } from '@/types/task';
 import Task from '@/components/Task';
 
 function TaskBoard() {
@@ -17,8 +16,11 @@ function TaskBoard() {
             id={task.id}
             title={task.title}
             description={task.description}
-            workTime={task.workTime}
+            workTimeSec={task.workTimeSec}
             active={task.active}
+            completed={task.completed}
+            planTime={task.planTime}
+            isVisible={task.isVisible}
           />
         );
       })}
