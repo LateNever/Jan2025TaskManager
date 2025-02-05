@@ -38,31 +38,46 @@ const Form = () => {
         <input
           className="p-3 rounded-xl bg-blue-200 focus:bg-blue-300"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length <= 500) {
+              setTitle(e.target.value);
+            }
+          }}
           type="text"
           id="taskTitle"
           name="title"
           placeholder="Название задачи"
         />
-        <input
-          className="p-3 pl-6 rounded-xl text-center bg-blue-200 focus:bg-blue-300"
-          value={workTime}
-          onChange={(e) => {
-            const inputWorkTime = e.target.value;
-            const [hours, minutes] = inputWorkTime.split(':');
-            const WorkTimeSec = Number(hours) * 3600 + Number(minutes) * 60;
-            setWorkTimeSec(WorkTimeSec);
-            setPlanTime(WorkTimeSec);
-            setWorkTime(e.target.value);
-          }}
-          type="time"
-          id="taskTime"
-          name="workTime"
-        />
+        <div className="flex gap-x-3 ">
+          <span className="w-full p-3 rounded-xl bg-blue-200 focus:bg-blue-300">
+            Время выполнения
+          </span>
+          <input
+            className="p-3 pl-6 rounded-xl text-center bg-blue-200 focus:bg-blue-300"
+            value={workTime}
+            onChange={(e) => {
+              const inputWorkTime = e.target.value;
+              const [hours, minutes] = inputWorkTime.split(':');
+              const WorkTimeSec = Number(hours) * 3600 + Number(minutes) * 60;
+              setWorkTimeSec(WorkTimeSec);
+              setPlanTime(WorkTimeSec);
+              setWorkTime(e.target.value);
+            }}
+            type="time"
+            id="taskTime"
+            name="workTime"
+          />
+        </div>
         <textarea
           className="p-3 rounded-xl bg-blue-200 focus:bg-blue-300"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length <= 500) {
+              setDescription(e.target.value);
+              e.target.style.height = 'auto';
+              e.target.style.height = e.target.scrollHeight + 'px';
+            }
+          }}
           id="taskDescription"
           name="description"
           placeholder="Введите описание задачи"
@@ -71,7 +86,7 @@ const Form = () => {
           className="p-3 rounded-xl bg-blue-200 transition ease-in-out hover:bg-blue-300 active:bg-blue-400"
           type="submit"
         >
-          Добавить
+          Создать задачу
         </button>
       </form>
     </div>
