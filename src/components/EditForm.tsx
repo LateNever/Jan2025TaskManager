@@ -12,6 +12,7 @@ interface TaskProps {
   formTitle: string;
   formDescription: string;
   formWorkTime: string;
+  formWorkTimeSec: number;
   forEditClose: () => void;
 }
 
@@ -20,12 +21,13 @@ const EditForm: React.FC<TaskProps> = ({
   formTitle,
   formDescription,
   formWorkTime,
+  formWorkTimeSec,
   forEditClose,
 }) => {
   const [title, setTitle] = useState<string>(formTitle);
   const [description, setDescription] = useState<string>(formDescription);
   const [workTime, setWorkTime] = useState<string>(formWorkTime);
-  const [workTimeSec, setWorkTimeSec] = useState<number>(0);
+  const [workTimeSec, setWorkTimeSec] = useState<number>(formWorkTimeSec);
   const [planTime, setPlanTime] = useState<number>(0);
 
   const dispatch = useDispatch();

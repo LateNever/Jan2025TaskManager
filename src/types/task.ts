@@ -4,7 +4,10 @@ export type TaskType = {
   description: string;
   workTimeSec: number;
   active: boolean;
-  completed: boolean;
+  status: 'new' | 'inProcess' | 'completed';
+  // completed: boolean;
   planTime: number;
   isVisible: boolean;
+  isCompact: boolean;
+  // inProcess: boolean;
 };

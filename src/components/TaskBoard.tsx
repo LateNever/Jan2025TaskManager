@@ -4,12 +4,20 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import Task from '@/components/Task';
 
-function TaskBoard() {
+interface TaskBoardProps {
+  sortBy: 'new' | 'inProcess' | 'completed';
+}
+
+function TaskBoard({ sortBy }: TaskBoardProps) {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
+
+  const sortedTasks = tasks.filter((task) => {
+    if (sortBy === task.status) return true;
+  });
 
   return (
     <div className="flex flex-col p-6 gap-y-6 rounded-3xl bg-gray-200">
-      {tasks.map((task) => {
+      {sortedTasks.map((task) => {
         return (
           <Task
             key={task.id}
@@ -18,9 +26,10 @@ function TaskBoard() {
             description={task.description}
             workTimeSec={task.workTimeSec}
             active={task.active}
-            completed={task.completed}
+            status={task.status}
             planTime={task.planTime}
             isVisible={task.isVisible}
+            isCompact={task.isCompact}
           />
         );
       })}

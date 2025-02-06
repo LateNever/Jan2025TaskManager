@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { activateTask, deleteTask, completeTask } from '@/store/taskSlice';
+import {
+  activateTask,
+  deleteTask,
+  completeTask,
+  compactTask,
+} from '@/store/taskSlice';
 import { updateWorkTime } from '@/store/taskSlice';
 
 import Button from '@/UI/Button';
@@ -13,9 +18,11 @@ interface TaskProps {
   description: string;
   workTimeSec: number;
   active: boolean;
-  completed: boolean;
+  status: 'new' | 'inProcess' | 'completed';
+  // completed: boolean;
   planTime: number;
   isVisible: boolean;
+  isCompact: boolean;
 }
 
 const Task: React.FC<TaskProps> = ({
@@ -24,9 +31,10 @@ const Task: React.FC<TaskProps> = ({
   description,
   workTimeSec,
   active,
-  completed,
+  status,
   planTime,
   isVisible,
+  isCompact,
 }) => {
   const dispatch = useDispatch();
 
@@ -39,14 +47,13 @@ const Task: React.FC<TaskProps> = ({
   }, [active, dispatch, id]);
 
   const [modal, setModal] = useState<boolean>(false);
-  const [isCompact, setIsCompact] = useState<boolean>(true);
 
   const colors: string =
     active && workTimeSec < 0
       ? 'bg-orange-100'
       : active
       ? 'bg-emerald-200'
-      : completed
+      : status === 'completed'
       ? 'bg-indigo-100'
       : workTimeSec < 0
       ? 'bg-red-100'
@@ -58,18 +65,18 @@ const Task: React.FC<TaskProps> = ({
 
   const workTime: string =
     workTimeSec > 0
-      ? `Времени осталось ${Math.floor(workTimeSec / 3600)
+      ? `${Math.floor(workTimeSec / 3600)
           .toString()
           .padStart(2, '0')}:${Math.ceil((workTimeSec % 3600) / 60)
           .toString()
           .padStart(2, '0')}`
-      : `Просрочена на ${-Math.ceil(workTimeSec / 3600)
+      : `${-Math.ceil(workTimeSec / 3600)
           .toString()
           .padStart(2, '0')}:${-Math.ceil((workTimeSec % 3600) / 60)
           .toString()
           .padStart(2, '0')}`;
 
-  const planTimeTask: string = `Плановое время ${Math.floor(planTime / 3600)
+  const planTimeTask: string = `${Math.floor(planTime / 3600)
     .toString()
     .padStart(2, '0')}:${Math.ceil((planTime % 3600) / 60)
     .toString()
@@ -92,12 +99,12 @@ const Task: React.FC<TaskProps> = ({
   };
 
   const onCompact = () => {
-    setIsCompact(true);
+    dispatch(compactTask({ id, isCompact: true }));
   };
 
   const offCompact = () => {
     if (isCompact) {
-      setIsCompact(false);
+      dispatch(compactTask({ id, isCompact: false }));
     }
   };
 
@@ -108,14 +115,6 @@ const Task: React.FC<TaskProps> = ({
       className={`relative flex flex-col gap-y-4 p-6 rounded-3xl ${colors} ${pseudoOpacity} shadow-md transition ease-in-out`}
       onClick={offCompact}
     >
-      {/* <button
-        className="absolute top-6 right-6 w-9 h-7 rounded-lg bg-blue-200 transition ease-in-out hover:bg-blue-300 active:bg-blue-400"
-        type="button"
-        onClick={toggleCompact}
-      >
-        {isCompact ? '+' : '-'}
-      </button> */}
-
       <h3 className="text-center text-lg font-bold ">{title}</h3>
 
       {!isCompact && (
@@ -127,14 +126,16 @@ const Task: React.FC<TaskProps> = ({
           )}
           <div className="flex gap-x-4 ">
             <span className="w-2/4 p-3 rounded-lg text-center bg-sky-200">
-              {planTimeTask}
+              {`Плановое время ${planTimeTask}`}
             </span>
             <span className="w-2/4 p-3 rounded-lg text-center bg-sky-200">
-              {workTime}
+              {workTimeSec > 0
+                ? `Осталось времени ${workTime}`
+                : `Время просрочки ${workTime}`}
             </span>
           </div>
           <Button name="Свернуть" type="button" onClick={onCompact} />
-          {!completed && (
+          {status !== 'completed' && (
             <Button
               name={active ? 'Пауза' : 'Начать выполнение'}
               type="button"
@@ -142,11 +143,15 @@ const Task: React.FC<TaskProps> = ({
             />
           )}
           <Button
-            name={completed ? 'Вернуть в работу' : 'Завершить выполнение'}
+            name={
+              status === 'completed'
+                ? 'Вернуть в работу'
+                : 'Завершить выполнение'
+            }
             type="button"
             onClick={completeTaskHandle}
           />
-          {!completed && (
+          {status !== 'completed' && (
             <Button
               name="Редактировать задачу"
               type="button"
@@ -171,6 +176,7 @@ const Task: React.FC<TaskProps> = ({
             formTitle={title}
             formDescription={description}
             formWorkTime={workTime}
+            formWorkTimeSec={workTimeSec}
             forEditClose={toggleModal}
           />
         </div>
