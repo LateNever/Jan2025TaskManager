@@ -1,3 +1,9 @@
+Заметочки:
+
+1. Кнопки действий с задачей из текстовых надо сделать с иконками, для компактности
+2. Не адаптировано под все браузеры
+3. Нужно прописывать дисплей все элементам (или нет)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

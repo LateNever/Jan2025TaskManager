@@ -13,6 +13,11 @@ export default {
         foreground: 'var(--foreground)',
       },
       minWidth: {
+        '100': '33rem',
+        '128': '40rem',
+      },
+      maxWidth: {
+        '100': '33rem',
         '128': '40rem',
       },
     },

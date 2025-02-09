@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { motion } from 'framer-motion';
+
 import { searchTask } from '@/store/taskSlice';
 
 import Button from '@/UI/Button';
@@ -27,9 +29,12 @@ const Search = () => {
   };
 
   return (
-    <form
+    <motion.form
       onSubmit={searchTaskHandle}
-      className="flex gap-x-6 min-w-128 p-6 rounded-3xl bg-blue-100 shadow-md"
+      className="flex gap-x-6 sm:min-w-100 md:min-w-128 p-6 rounded-3xl bg-blue-100 shadow-md"
+      initial={{ opacity: 0, y: -25 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: 0.2 }}
     >
       <input
         className=" w-full p-3 rounded-xl bg-blue-200 focus:bg-blue-300"
@@ -41,7 +46,7 @@ const Search = () => {
         placeholder="Текст поиска"
       />
       <Button name="Поиск" type="submit" width="w-32" />
-    </form>
+    </motion.form>
   );
 };
 

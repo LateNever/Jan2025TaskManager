@@ -25,9 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <StoreProvider>
-      <html lang="ru">
+      <html lang="ru" style={{ scrollbarGutter: 'stable' }}>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-300 `}
         >
           {children}
         </body>

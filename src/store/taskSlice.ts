@@ -11,11 +11,9 @@ const initialState: tasksStateType = {
       workTimeSec: 1,
       active: false,
       status: 'new',
-      // completed: false,
       planTime: 1,
       isVisible: true,
       isCompact: true,
-      // inProcess: false,
     },
     {
       id: '2ads',
@@ -24,11 +22,9 @@ const initialState: tasksStateType = {
       workTimeSec: 600,
       active: false,
       status: 'new',
-      // completed: false,
-      planTime: 1,
+      planTime: 600,
       isVisible: true,
       isCompact: true,
-      // inProcess: false,
     },
   ],
 };
@@ -45,11 +41,9 @@ const taskSlice = createSlice({
         workTimeSec: action.payload.workTimeSec,
         active: false,
         status: 'new',
-        // completed: false,
         planTime: action.payload.planTime,
         isVisible: true,
         isCompact: true,
-        // inProcess: false,
       });
     },
 
@@ -58,8 +52,11 @@ const taskSlice = createSlice({
         if (task.id === action.payload.formId) {
           task.title = action.payload.title;
           task.description = action.payload.description;
-          task.workTimeSec = action.payload.workTimeSec;
-          task.planTime = action.payload.planTime;
+          if (task.workTimeSec !== action.payload.workTimeSec) {
+            task.workTimeSec = action.payload.workTimeSec;
+            task.planTime = action.payload.planTime;
+            task.status = 'new';
+          }
         } else return;
       });
     },
@@ -82,12 +79,16 @@ const taskSlice = createSlice({
             ? (task.status = 'completed')
             : (task.status = 'inProcess');
           task.active = false;
+          task.workTimeSec =
+            action.payload.planTime - action.payload.workTimeSec;
         }
       });
     },
 
     deleteTask(state, action) {
-      state.tasks = state.tasks.filter((task) => task.id !== action.payload.id);
+      state.tasks = state.tasks.filter((task) => {
+        return task.id !== action.payload.id;
+      });
     },
 
     updateWorkTime(state, action) {
@@ -98,8 +99,6 @@ const taskSlice = createSlice({
     },
 
     compactTask(state, action) {
-      console.log('hi');
-      console.log(action.payload.compact);
       state.tasks.forEach((task) => {
         if (task.id === action.payload.id)
           task.isCompact = action.payload.isCompact;

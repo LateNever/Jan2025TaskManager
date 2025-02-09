@@ -53,7 +53,7 @@ const EditForm: React.FC<TaskProps> = ({
     <div onClick={(e) => e.stopPropagation()}>
       <form
         onSubmit={editTaskHandle}
-        className="flex flex-col mr-4 gap-y-6 p-6 rounded-3xl bg-blue-100 shadow-md"
+        className="flex flex-col gap-y-6 p-6 rounded-3xl bg-blue-100 shadow-md"
       >
         <input
           className="p-3 rounded-xl bg-blue-200 focus:bg-blue-300"
@@ -64,21 +64,26 @@ const EditForm: React.FC<TaskProps> = ({
           name="title"
           placeholder="Название задачи"
         />
-        <input
-          className="p-3 pl-6 rounded-xl text-center bg-blue-200 focus:bg-blue-300"
-          value={workTime}
-          onChange={(e) => {
-            const inputWorkTime = e.target.value;
-            const [hours, minutes] = inputWorkTime.split(':');
-            const WorkTimeSec = Number(hours) * 3600 + Number(minutes) * 60;
-            setWorkTimeSec(WorkTimeSec);
-            setPlanTime(WorkTimeSec);
-            setWorkTime(e.target.value);
-          }}
-          type="time"
-          id="taskTime"
-          name="workTime"
-        />
+        <label className="flex gap-x-3">
+          <span className="p-3 rounded-xl text-center bg-blue-300">
+            Время выполнения
+          </span>
+          <input
+            className="p-3 pl-6 rounded-xl text-center bg-blue-200 focus:bg-blue-300"
+            value={workTime}
+            onChange={(e) => {
+              const inputWorkTime = e.target.value;
+              const [hours, minutes] = inputWorkTime.split(':');
+              const WorkTimeSec = Number(hours) * 3600 + Number(minutes) * 60;
+              setWorkTimeSec(WorkTimeSec);
+              setPlanTime(WorkTimeSec);
+              setWorkTime(e.target.value);
+            }}
+            type="time"
+            id="taskTime"
+            name="workTime"
+          />
+        </label>
         <textarea
           className="p-3 rounded-xl bg-blue-200 focus:bg-blue-300"
           value={description}
