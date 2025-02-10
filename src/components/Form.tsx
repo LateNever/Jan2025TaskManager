@@ -10,9 +10,9 @@ import { addTask } from '@/store/taskSlice';
 import Button from '@/UI/Button';
 
 const Form = () => {
-  const [title, setTitle] = useState<string>('ЗАдача тест');
-  const [description, setDescription] = useState<string>('Это ткстовая задача');
-  const [workTime, setWorkTime] = useState<string>('11:11');
+  const [title, setTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [workTime, setWorkTime] = useState<string>('');
   const [workTimeSec, setWorkTimeSec] = useState<number>(0);
   const [planTime, setPlanTime] = useState<number>(0);
 

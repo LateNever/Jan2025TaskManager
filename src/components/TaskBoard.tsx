@@ -32,6 +32,7 @@ function TaskBoard({ sortBy, title }: TaskBoardProps) {
           {sortedTasks.map((task) => {
             return (
               <motion.div
+                className="md:w-[calc(50%-1rem)] lg:w-[calc(33%-1rem)] xl:w-full"
                 key={task.id}
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}

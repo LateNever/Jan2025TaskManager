@@ -72,6 +72,12 @@ const taskSlice = createSlice({
       });
     },
 
+    deactivateTask(state, action) {
+      state.tasks.forEach((task) => {
+        if (task.id === action.payload.id) task.active = false;
+      });
+    },
+
     completeTask(state, action) {
       state.tasks.forEach((task) => {
         if (task.id === action.payload.id) {
@@ -124,6 +130,7 @@ export const {
   addTask,
   editTask,
   activateTask,
+  deactivateTask,
   completeTask,
   deleteTask,
   updateWorkTime,

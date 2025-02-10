@@ -7,7 +7,7 @@ interface TaskProps {
 
 const Timer: React.FC<TaskProps> = ({ title, time }) => {
   return (
-    <div className="flex flex-col w-2/4 p-3 rounded-lg text-center bg-sky-200">
+    <div className="flex flex-col w-full p-3 rounded-lg text-center bg-sky-200">
       <span>{title}</span>
       <span className="text-2xl">{time}</span>
     </div>

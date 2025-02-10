@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import {
   activateTask,
+  deactivateTask,
   deleteTask,
   completeTask,
   compactTask,
@@ -89,7 +90,12 @@ const Task: React.FC<TaskProps> = ({
     dispatch(deleteTask({ id }));
   };
 
+  const deactivateTaskHandle = () => {
+    dispatch(deactivateTask({ id }));
+  };
+
   const toggleModal = () => {
+    deactivateTaskHandle();
     setModal(!modal);
   };
 
@@ -107,9 +113,10 @@ const Task: React.FC<TaskProps> = ({
 
   return (
     <div
-      className={`relative flex flex-col gap-y-4 md:w-[calc(50%-1rem)] lg:w-[calc(33%-1rem)] xl:w-full max-h-min p-6 rounded-3xl ${colors} ${pseudoOpacity} ${
+      className={`relative flex flex-col gap-y-4 max-h-min p-6 rounded-3xl ${colors} ${pseudoOpacity} ${
         active && 'outline outline-4 outline-indigo-400'
-      } shadow-md transition ease-in-out`}
+      } shadow-md`}
+      // className="relative flex flex-col w-10 p-6 rounded-3xl bg-teal-100"
       onClick={offCompact}
     >
       <h3 className="text-center text-lg font-bold ">{title}</h3>
