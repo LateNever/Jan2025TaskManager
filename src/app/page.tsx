@@ -9,7 +9,6 @@ import Search from '@/components/Search';
 export default function Home() {
   return (
     <div className="flex flex-col items-center min-h-screen h-full p-6 gap-y-6 font-[family-name:var(--font-geist-sans)]">
-      <span className="bg-blue-500 text-5xl md:w-2/4">TEST</span>
       <motion.h1
         className="md:min-w-128 p-6 text-center rounded-3xl text-3xl font-bold bg-blue-200 text-sky-700 shadow-md"
         initial={{ opacity: 0, y: -25 }}

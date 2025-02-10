@@ -28,6 +28,7 @@ function TaskBoard({ sortBy, title }: TaskBoardProps) {
     >
       <h2 className="text-center text-2xl font-bold">{title}</h2>
       <div className="flex flex-col md:flex-row xl:flex-col md:justify-between lg:justify-start lg:gap-x-7 flex-wrap gap-y-6">
+        {/* <div className="flex flex-col md:grid md:grid-cols-2 xl:flex-col md:justify-between lg:justify-start lg:gap-x-7 flex-wrap gap-y-6"> */}
         <AnimatePresence>
           {sortedTasks.map((task) => {
             return (

@@ -1,5 +1,3 @@
-import { div } from 'framer-motion/client';
-
 interface TaskProps {
   title: string;
   time: string;

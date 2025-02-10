@@ -3,11 +3,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { addTask } from '@/store/taskSlice';
-
-import Button from '@/UI/Button';
 
 const Form = () => {
   const [title, setTitle] = useState<string>('');
@@ -26,9 +24,9 @@ const Form = () => {
 
       dispatch(addTask({ id, title, description, workTimeSec, planTime }));
 
-      setTitle('ЗАдача тест');
-      setDescription('Это ткстовая задача');
-      setWorkTime('11:11');
+      setTitle('');
+      setDescription('');
+      setWorkTime('');
     }
   };
 

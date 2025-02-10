@@ -3,30 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { tasksStateType } from '@/types/tasksStateType';
 
 const initialState: tasksStateType = {
-  tasks: [
-    {
-      id: '1q',
-      title: 'Задача раз',
-      description: 'Описание задачи',
-      workTimeSec: 1,
-      active: false,
-      status: 'new',
-      planTime: 1,
-      isVisible: true,
-      isCompact: true,
-    },
-    {
-      id: '2ads',
-      title: 'Задача два',
-      description: 'Описание задачи два',
-      workTimeSec: 600,
-      active: false,
-      status: 'new',
-      planTime: 600,
-      isVisible: true,
-      isCompact: true,
-    },
-  ],
+  tasks: [],
 };
 
 const taskSlice = createSlice({
@@ -63,11 +40,15 @@ const taskSlice = createSlice({
 
     activateTask(state, action) {
       state.tasks.forEach((task) => {
-        task.id === action.payload.id && task.active === false
-          ? (task.active = true)
-          : (task.active = false);
-        if (task.id === action.payload.id && task.status !== 'inProcess') {
-          task.status = 'inProcess';
+        if (task.id === action.payload.id) {
+          if (task.active === false) {
+            task.active = true;
+          } else {
+            task.active = false;
+          }
+          if (task.status !== 'inProcess') {
+            task.status = 'inProcess';
+          }
         }
       });
     },
@@ -81,9 +62,12 @@ const taskSlice = createSlice({
     completeTask(state, action) {
       state.tasks.forEach((task) => {
         if (task.id === action.payload.id) {
-          task.status !== 'completed'
-            ? (task.status = 'completed')
-            : (task.status = 'inProcess');
+          if (task.status !== 'completed') {
+            task.status = 'completed';
+          } else {
+            task.status = 'inProcess';
+          }
+
           task.active = false;
           task.workTimeSec =
             action.payload.planTime - action.payload.workTimeSec;

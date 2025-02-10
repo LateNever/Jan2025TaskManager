@@ -15,7 +15,6 @@ import { updateWorkTime } from '@/store/taskSlice';
 import Button from '@/UI/Button';
 import Timer from '@/UI/Timer';
 import EditForm from '@/components/EditForm';
-import { audio } from 'framer-motion/client';
 
 interface TaskProps {
   id: string;

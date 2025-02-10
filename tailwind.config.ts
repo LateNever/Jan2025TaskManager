@@ -20,6 +20,9 @@ export default {
         '100': '33rem',
         '128': '40rem',
       },
+      width: {
+        '138': '40rem',
+      },
     },
   },
   plugins: [],

@@ -50,7 +50,7 @@ const EditForm: React.FC<TaskProps> = ({
   };
 
   return (
-    <div onClick={(e) => e.stopPropagation()}>
+    <div className="xl:w-138" onClick={(e) => e.stopPropagation()}>
       <form
         onSubmit={editTaskHandle}
         className="flex flex-col gap-y-6 p-6 rounded-3xl bg-blue-100 shadow-md"
@@ -65,7 +65,7 @@ const EditForm: React.FC<TaskProps> = ({
           placeholder="Название задачи"
         />
         <label className="flex gap-x-3">
-          <span className="p-3 rounded-xl text-center bg-blue-300">
+          <span className="w-full p-3 rounded-xl text-center bg-blue-300">
             Время выполнения
           </span>
           <input
@@ -87,7 +87,11 @@ const EditForm: React.FC<TaskProps> = ({
         <textarea
           className="p-3 rounded-xl bg-blue-200 focus:bg-blue-300"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => {
+            setDescription(e.target.value);
+            e.target.style.height = 'auto';
+            e.target.style.height = e.target.scrollHeight + 'px';
+          }}
           id="taskDescription"
           name="description"
           placeholder="Введите описание задачи"
